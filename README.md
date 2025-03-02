@@ -56,10 +56,26 @@ Bhai_IAM is a comprehensive Identity and Access Management system built with Spr
 API documentation is available through SpringDoc OpenAPI UI at `http://localhost:8080/swagger-ui.html` when the application is running.
 
 ## Testing
-Run the test suite with:
+Run the complete test suite with:
 ```bash
 mvn test
 ```
+
+### Running Specific Tests
+To run the Product Access Control Flow Integration Test:
+```bash
+cd oidc-provider
+mvn test -Dtest=ProductAccessControlFlowIntegrationTest
+```
+
+This integration test validates the role-based access control mechanism for products:
+- Verifies that Admins can access all products
+- Confirms Sales Managers can only access limited products (iPhone, iPad)
+- Ensures CRM Representatives can only access specific products (iPhone)
+- Tests that only Admins can create new products
+- Validates that only Admins can manage product role assignments
+
+The test uses JWT tokens to simulate different user roles and verifies access permissions across various API endpoints.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE file for details. 
