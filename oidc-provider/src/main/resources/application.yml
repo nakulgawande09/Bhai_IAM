@@ -1,0 +1,51 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: oidc-provider
+  
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: IAM
+      auto-index-creation: true
+  
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/iam-realm
+          jwk-set-uri: http://localhost:8080/realms/iam-realm/protocol/openid-connect/certs
+
+# Keycloak Configuration
+keycloak:
+  realm: iam-realm
+  auth-server-url: http://localhost:8080/auth
+  resource: iam-client
+  public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx15K8CX/llh3wV5aQK0tILYK36m0D2F9z2OkRoYe4f12+SfCqaN2iM/IB5HMEyBG33XbaSMZhHIA2QRIjcFBw4pkPQkuMJ/7fMorXRVJbwgQMaARL0C5HlLkVhd1qWKQY7n6AAQQsVwxG5H2Fyfm6ntR7vF1eKTBMOQcQQy1AfFTLs6yAIGDsWLljjWrLphktpSZdxGKQcpSWsUkLg4cCVbFSB4qFQQQifwPH2Vz2PJh2YdZnULYF9XQF1UDZ+tS3jTZCZ+GRJCky7dzyqMWVoK6i4aMNnxL1tYBnX0LdlHcNdQJ4ufQGfs+XvMLlA+ApFpJu7xLHvZ4FMZnOzc3GQIDAQAB
+  bearer-only: true
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb: INFO
+        security: DEBUG
+    com:
+      auth:
+        oidcprovider: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/oidc-provider.log
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method 

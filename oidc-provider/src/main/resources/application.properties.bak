@@ -1,0 +1,24 @@
+# Application
+spring.application.name=oidc-provider
+server.port=8080
+
+# MongoDB Configuration
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=oidc-provider
+spring.data.mongodb.auto-index-creation=true
+spring.mongodb.embedded.version=6.0.1
+
+# Security Configuration
+spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8180/realms/myrealm
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8180/realms/myrealm/protocol/openid-connect/certs
+
+# Logging
+logging.level.org.springframework.security=DEBUG
+logging.level.org.springframework.data.mongodb=INFO
+logging.level.com.auth.oidcprovider=DEBUG
+
+# API Documentation
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.operationsSorter=method 
